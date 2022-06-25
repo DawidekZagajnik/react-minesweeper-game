@@ -1,23 +1,27 @@
-import logo from './logo.svg';
 import './App.css';
+import Tile from "./components/Tile";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div style={{marginTop: 500, marginLeft: 500, display: "flex", flexDirection: "row"}}>
+        <Tile />
+        <Tile />
+        <Tile />
+      </div>
+      <div style={{marginLeft: 500, display: "flex", flexDirection: "row"}}>
+        <Tile revealed={true} value={0}/>
+        <Tile revealed={true} value={1}/>
+        <Tile revealed={true} value={2}/>
+        <Tile revealed={true} value={3}/>
+        <Tile revealed={true} value={4}/>
+        <Tile revealed={true} value={5}/>
+        <Tile revealed={true} value={6}/>
+        <Tile revealed={true} value={7}/>
+        <Tile revealed={true} value={8}/>
+        <Tile />
+        <Tile />
+      </div>
     </div>
   );
 }

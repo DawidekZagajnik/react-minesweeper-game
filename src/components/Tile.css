@@ -1,0 +1,31 @@
+.tile {
+    width: 50px;
+    height: 50px;
+    background-color: #08a;
+    border-radius: 5px;
+    margin: 2px;
+    border: 2px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.unrevealed-tile {
+    background-color: #0bd;
+}
+
+.unrevealed-tile:hover {
+    background-color: #0be;
+    margin: 0;
+    margin-right: 3px;
+    margin-top: 1px;
+    margin-bottom: 3px;
+    margin-left: 1px;
+    box-shadow: 1px 1px black;
+}
+
+.tile-number {
+    font-size: 35px;
+    font-weight: 700;
+    margin-bottom: 3px;
+}
