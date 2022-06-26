@@ -1,10 +1,11 @@
 import './App.css';
-import Tile from "./components/Tile";
+import Logo from "./components/Logo";
 import GamePane from './components/GamePane';
 
 function App() {
   return (
     <div className="App">
+      <Logo />
       <GamePane />
     </div>
   );

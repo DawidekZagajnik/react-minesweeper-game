@@ -15,6 +15,14 @@ export default function GamePane() {
     const [refresh, setRefresh] = React.useState(0);
     const [flags, setFlags] = React.useState(0);
 
+    const handleWin = () => {
+        console.log("WIN");
+    };
+
+    const handleLose = () => {
+        console.log("LOSE");
+    }
+
     return <div className="game-pane">
         <div style={{display: "flex", flexDirection: "row"}}>
             <IconButton onClick={() => setSettingsOpen(true)} style={{color: "#08a"}}>
@@ -25,7 +33,7 @@ export default function GamePane() {
             </IconButton>
             <h2 style={{marginLeft: 10, fontSize: 24, color: "#08a"}}>{`${flags}/${mines}`}</h2>
         </div>
-        <Board rows={rows} cols={columns} mines={mines} onWin={() => console.log("WIN")} onLose={() => console.log("LOSE")} gameRefresh={refresh} setFlags={setFlags}/>
+        <Board rows={rows} cols={columns} mines={mines} onWin={handleWin} onLose={handleLose} gameRefresh={refresh} setFlags={setFlags}/>
         <Drawer
             anchor="left"
             open={settingsOpen}
