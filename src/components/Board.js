@@ -9,6 +9,7 @@ export default function Board({ rows, cols, onLose, onWin, mines }) {
     const tiles = React.useRef(makeBoard(rows, cols, 0));
     const [refresh, setRefresh] = React.useState(0);
     const [firstAction, setFirstAction] = React.useState(true);
+    const [lost, setLost] = React.useState(false);
 
     const revealTile = (row, col) => {
         if (tiles.current[row][col].hasMine) {
@@ -18,6 +19,7 @@ export default function Board({ rows, cols, onLose, onWin, mines }) {
                 }
             }
             setRefresh(Math.random());
+            setLost(true);
             onLose();
         }
         else {
@@ -76,8 +78,8 @@ export default function Board({ rows, cols, onLose, onWin, mines }) {
                     row.map((tile, cIndex) =>  
                         <Tile 
                             key={`${rIndex},${cIndex}`} 
-                            onClick={() => handleTileClick(rIndex, cIndex)}
-                            setMarked={(marked) => markTile(rIndex, cIndex, marked)}
+                            onClick={lost ? () => {} : () => handleTileClick(rIndex, cIndex)}
+                            setMarked={lost ? () => {} : (marked) => markTile(rIndex, cIndex, marked)}
                             {...tile}
                         />
                     )}

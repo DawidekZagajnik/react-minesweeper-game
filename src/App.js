@@ -1,30 +1,12 @@
 import './App.css';
 import Tile from "./components/Tile";
-import makeBoard from './service/makeBoard';
-import Board from "./components/Board";
+import GamePane from './components/GamePane';
 
 function App() {
   return (
     <div className="App">
-      <div style={{marginTop: 500, marginLeft: 500, display: "flex", flexDirection: "row"}}>
-        <Tile hasFlag={true}/>
-        <Tile />
-        <Tile />
-      </div>
-      <div style={{marginLeft: 500, display: "flex", flexDirection: "row"}}>
-        <Tile revealed={true} value={0}/>
-        <Tile revealed={true} value={1}/>
-        <Tile revealed={true} value={2}/>
-        <Tile revealed={true} value={3}/>
-        <Tile revealed={true} value={4}/>
-        <Tile revealed={true} value={5}/>
-        <Tile revealed={true} value={6}/>
-        <Tile revealed={true} value={7}/>
-        <Tile revealed={true} value={8}/>
-        <Tile revealed={true} value={0} hasMine={true} />
-      </div>
-      <div style={{marginLeft: 500}}>
-        <Board rows={10} cols={10} mines={10}/>
+      <div style={{marginTop: 500, marginLeft: 500}}>
+        <GamePane />
       </div>
     </div>
   );
