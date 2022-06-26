@@ -26,7 +26,7 @@ export default function Tile({ onClick, revealed, value, hasMine, hasFlag, setMa
         return <div className="tile unrevealed-tile" onClick={onClick} onContextMenu={(e) => {e.preventDefault(); setMarked(true);}}/>
     }
 
-    return <div className="tile">
+    return <div className="tile" onContextMenu={e => e.preventDefault()}>
         <div className="tile-number" style={{color: colors[value]}}>{
             hasMine ? <FaBomb size={30} color="#000"/> : typeof value !== "undefined" && value > 0 && value
         }</div>
