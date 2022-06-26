@@ -4,12 +4,20 @@ import "./Board.css";
 import makeBoard from "../service/makeBoard";
 
 
-export default function Board({ rows, cols, onLose, onWin, mines }) {
+export default function Board({ rows, cols, onLose, onWin, mines, gameRefresh, setFlags }) {
 
     const tiles = React.useRef(makeBoard(rows, cols, 0));
     const [refresh, setRefresh] = React.useState(0);
-    const [firstAction, setFirstAction] = React.useState(true);
-    const [lost, setLost] = React.useState(false);
+    const firstAction = React.useRef(true);
+    const lost = React.useRef(false);
+
+    React.useEffect(() => {
+        tiles.current = makeBoard(rows, cols, 0);
+        firstAction.current = true;
+        lost.current = false;
+        setFlags(0);
+        setRefresh(Math.random());
+    }, [rows, cols, mines, gameRefresh])
 
     const revealTile = (row, col) => {
         if (tiles.current[row][col].hasMine) {
@@ -19,7 +27,7 @@ export default function Board({ rows, cols, onLose, onWin, mines }) {
                 }
             }
             setRefresh(Math.random());
-            setLost(true);
+            lost.current = true;
             onLose();
         }
         else {
@@ -31,7 +39,9 @@ export default function Board({ rows, cols, onLose, onWin, mines }) {
                             0 <= row + rowOffset && row + rowOffset < tiles.current.length && 
                             0 <= col + colOffset && col + colOffset < tiles.current[0].length
                             ) {
-                            if (!tiles.current[row + rowOffset][col + colOffset].hasMine && !tiles.current[row + rowOffset][col + colOffset].revealed) {
+                            if (!tiles.current[row + rowOffset][col + colOffset].hasMine && 
+                                !tiles.current[row + rowOffset][col + colOffset].revealed && 
+                                !tiles.current[row + rowOffset][col + colOffset].hasFlag) {
                                 revealTile(row + rowOffset, col + colOffset);
                             }
                         }
@@ -41,15 +51,34 @@ export default function Board({ rows, cols, onLose, onWin, mines }) {
         }
     };
 
+    const countFlags = () => {
+        let res = 0;
+        for (let row = 0; row < tiles.current.length; row++) {
+            for (let col = 0; col < tiles.current[0].length; col++) {
+                res += tiles.current[row][col].hasFlag ? 1 : 0;
+            }
+        }
+        return res
+    }
+
     const markTile = (row, col, marked) => {
-        tiles.current[row][col].hasFlag = marked;
-        setRefresh(Math.random());
+        if (!marked || countFlags() < mines) {
+            tiles.current[row][col].hasFlag = marked;
+            setRefresh(Math.random());
+            setFlags(countFlags());
+        }
     }
 
     const handleTileClick = (row, column) => {
-        if (firstAction) {
-            tiles.current = makeBoard(rows, cols, mines, row, column);
-            setFirstAction(false);
+        if (firstAction.current) {
+            let newTiles = makeBoard(rows, cols, mines, row, column);
+            for (let row = 0; row < tiles.current.length; row++) {
+                for (let col = 0; col < tiles.current[0].length; col++) {
+                    newTiles[row][col].hasFlag = tiles.current[row][col].hasFlag;
+                }
+            }
+            tiles.current = newTiles;
+            firstAction.current = false;
         }
         revealTile(row, column);
         let unrevealed = 0;
@@ -66,6 +95,7 @@ export default function Board({ rows, cols, onLose, onWin, mines }) {
                     if (!tiles.current[row][col].revealed) tiles.current[row][col].hasFlag = true;
                 }
             }
+            setFlags(countFlags());
             setRefresh(Math.random());
             onWin();
         } else setRefresh(Math.random());
@@ -78,8 +108,8 @@ export default function Board({ rows, cols, onLose, onWin, mines }) {
                     row.map((tile, cIndex) =>  
                         <Tile 
                             key={`${rIndex},${cIndex}`} 
-                            onClick={lost ? () => {} : () => handleTileClick(rIndex, cIndex)}
-                            setMarked={lost ? () => {} : (marked) => markTile(rIndex, cIndex, marked)}
+                            onClick={lost.current ? () => {} : () => handleTileClick(rIndex, cIndex)}
+                            setMarked={lost.current ? () => {} : (marked) => markTile(rIndex, cIndex, marked)}
                             {...tile}
                         />
                     )}

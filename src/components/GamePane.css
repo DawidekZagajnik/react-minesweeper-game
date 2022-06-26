@@ -1,0 +1,31 @@
+.game-pane {
+    align-self: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.settings-form {
+    width: 350px;
+    height: 100%;
+    padding: 20px;
+    background-color: #60b;
+}
+
+h1 {
+    border-bottom: 1px solid black;
+    padding-bottom: 10px;
+}
+
+.form-field {
+    margin: 10px;
+    margin-bottom: 50px;
+}
+
+.MuiSlider-valueLabelOpen.MuiSlider-valueLabel {
+    font-size: 16px;
+    background-color: unset;
+    top: 3px;
+    color: black;
+    font-weight: 600;
+    z-index: 1;
+}
