@@ -3,6 +3,7 @@ import "./Tile.css";
 import {FaBomb} from "react-icons/fa";
 import {BsFlag} from "react-icons/bs";
 import {ImCross} from "react-icons/im";
+import {TiTick} from "react-icons/ti";
 
 
 export default function Tile({ onClick, revealed, value, hasMine, hasFlag, setMarked }) {
@@ -27,10 +28,16 @@ export default function Tile({ onClick, revealed, value, hasMine, hasFlag, setMa
         return <div className="tile unrevealed-tile" onClick={onClick} onContextMenu={(e) => {e.preventDefault(); setMarked(true);}}/>
     }
 
-    else if (revealed && hasFlag && hasMine) {
+    else if (revealed && hasFlag && !hasMine) {
         return <div className="tile">
             <FaBomb size={30} color="#000"/>
             <ImCross size={30} color="#900" style={{marginLeft: -29}}/>
+        </div>
+    }
+    else if (revealed && hasFlag && hasMine) {
+        return <div className="tile">
+            <FaBomb size={30} color="#000" style={{marginRight: -40}}/>
+            <TiTick size={50} color="#060" style={{marginRight: -14}}/>
         </div>
     }
 

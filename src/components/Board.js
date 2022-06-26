@@ -23,7 +23,7 @@ export default function Board({ rows, cols, onLose, onWin, mines, gameRefresh, s
         if (tiles.current[row][col].hasMine) {
             for (let row = 0; row < tiles.current.length; row++) {
                 for (let col = 0; col < tiles.current[0].length; col++) {
-                    if (tiles.current[row][col].hasMine) tiles.current[row][col].revealed = true;
+                    if (tiles.current[row][col].hasMine || tiles.current[row][col].hasFlag) tiles.current[row][col].revealed = true;
                 }
             }
             setRefresh(Math.random());
