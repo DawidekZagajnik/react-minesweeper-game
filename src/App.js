@@ -1,5 +1,7 @@
 import './App.css';
 import Tile from "./components/Tile";
+import makeBoard from './service/makeBoard';
+import Board from "./components/Board";
 
 function App() {
   return (
@@ -22,7 +24,7 @@ function App() {
         <Tile revealed={true} value={0} hasMine={true} />
       </div>
       <div style={{marginLeft: 500}}>
-        
+        <Board rows={10} cols={10} mines={10}/>
       </div>
     </div>
   );

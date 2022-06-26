@@ -19,11 +19,11 @@ export default function Tile({ onClick, revealed, value, hasMine, hasFlag, setMa
     };
 
     if (!revealed && hasFlag) {
-        return <div className="tile unrevealed-tile" onContextMenu={() => setMarked(false)}><BsFlag size={30}/></div>
+        return <div className="tile unrevealed-tile" onContextMenu={(e) => {e.preventDefault(); setMarked(false);}}><BsFlag size={30}/></div>
     }
 
     else if (!revealed) {
-        return <div className="tile unrevealed-tile" onClick={onClick} onContextMenu={() => setMarked(true)}/>
+        return <div className="tile unrevealed-tile" onClick={onClick} onContextMenu={(e) => {e.preventDefault(); setMarked(true);}}/>
     }
 
     return <div className="tile">
