@@ -5,7 +5,7 @@ function App() {
   return (
     <div className="App">
       <div style={{marginTop: 500, marginLeft: 500, display: "flex", flexDirection: "row"}}>
-        <Tile />
+        <Tile hasFlag={true}/>
         <Tile />
         <Tile />
       </div>
@@ -19,8 +19,10 @@ function App() {
         <Tile revealed={true} value={6}/>
         <Tile revealed={true} value={7}/>
         <Tile revealed={true} value={8}/>
-        <Tile />
-        <Tile />
+        <Tile revealed={true} value={0} hasMine={true} />
+      </div>
+      <div style={{marginLeft: 500}}>
+        
       </div>
     </div>
   );
