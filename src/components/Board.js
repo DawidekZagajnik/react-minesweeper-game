@@ -4,7 +4,7 @@ import "./Board.css";
 import makeBoard from "../service/makeBoard";
 
 
-export default function Board({ rows, cols, onLose, onWin, mines, gameRefresh, setFlags }) {
+export default function Board({ rows, cols, onLose, onWin, mines, gameRefresh, setFlags, onReset }) {
 
     const tiles = React.useRef(makeBoard(rows, cols, 0));
     const [refresh, setRefresh] = React.useState(0);
@@ -15,6 +15,7 @@ export default function Board({ rows, cols, onLose, onWin, mines, gameRefresh, s
         tiles.current = makeBoard(rows, cols, 0);
         firstAction.current = true;
         lost.current = false;
+        onReset()
         setFlags(0);
         setRefresh(Math.random());
     }, [rows, cols, mines, gameRefresh])

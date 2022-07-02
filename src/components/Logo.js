@@ -12,7 +12,8 @@ export default function Logo() {
             width: 255,
             padding: 5,
             paddingTop: 0,
-            borderRadius: 10
+            borderRadius: 10,
+            cursor: "default"
         }}
     >Minesweeper</div>
 }

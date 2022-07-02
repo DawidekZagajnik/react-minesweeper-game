@@ -3,7 +3,7 @@ import Board from "./Board";
 import "./GamePane.css";
 import {FiSettings} from "react-icons/fi";
 import {AiOutlineCloseCircle} from "react-icons/ai";
-import { IconButton, Drawer, Slider } from "@mui/material";
+import { IconButton, Drawer, Slider, Snackbar } from "@mui/material";
 import {AiOutlineReload} from "react-icons/ai";
 
 export default function GamePane() {
@@ -14,13 +14,18 @@ export default function GamePane() {
     const [settingsOpen, setSettingsOpen] = React.useState(false);
     const [refresh, setRefresh] = React.useState(0);
     const [flags, setFlags] = React.useState(0);
+    const [lost, setLost] = React.useState(false);
+    const [won, setWon] = React.useState(false);
+    const [snackBarOpen, setSnackBarOpen] = React.useState(false);
 
     const handleWin = () => {
-        console.log("WIN");
+        setWon(true);
+        setSnackBarOpen(true);
     };
 
     const handleLose = () => {
-        console.log("LOSE");
+        setLost(true);
+        setSnackBarOpen(true);
     }
 
     return <div className="game-pane">
@@ -33,7 +38,11 @@ export default function GamePane() {
             </IconButton>
             <h2 style={{marginLeft: 10, fontSize: 24, color: "#08a"}}>{`${flags}/${mines}`}</h2>
         </div>
-        <Board rows={rows} cols={columns} mines={mines} onWin={handleWin} onLose={handleLose} gameRefresh={refresh} setFlags={setFlags}/>
+        <Board rows={rows} cols={columns} mines={mines} onWin={handleWin} onLose={handleLose} gameRefresh={refresh} setFlags={setFlags} onReset={() => {
+            setWon(false); 
+            setLost(false);
+            setSnackBarOpen(false);
+        }}/>
         <Drawer
             anchor="left"
             open={settingsOpen}
@@ -68,7 +77,6 @@ export default function GamePane() {
                         value={columns}
                         onChange={e => setColumns(e.target.value)}
                         sx={{color: "#0bd"}}
-                        label
                     />
                 </div>
                 <div className="form-field">
@@ -86,5 +94,17 @@ export default function GamePane() {
                 </div>
             </div>
         </Drawer>
+        <Snackbar
+            ContentProps={{sx: {backgroundColor: "#40a", color: "#0bd"}}}
+            anchorOrigin={{horizontal: "center", vertical: "bottom"}}
+            autoHideDuration={6000}
+            action={
+                <IconButton onClick={() => setRefresh(Math.random())} style={{color: "#08a"}}>
+                    <AiOutlineReload size={30}/>
+                </IconButton>
+            }   
+            open={snackBarOpen && (lost || won)}
+            message={`You ${lost ? "lost" : won ? "won" : ""}! Click button on the right to reset the game:`}
+        />
     </div>;
 }
