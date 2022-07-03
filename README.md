@@ -9,3 +9,6 @@ This is just a regular Minesweeper - reveal tiles and find all mines!
 ![image2](./screenshots/image2.png)
 
 ## Installation
+1. `git clone https://github.com/DawidekZagajnik/react-minesweeper-game.git`
+2. `docker build -t react-minesweeper .`
+3. `docker run -p 8484:80 react-minesweeper`
