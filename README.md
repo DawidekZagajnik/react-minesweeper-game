@@ -7,6 +7,7 @@ This is just a regular Minesweeper - reveal tiles and find all mines!
 
 ![image1](./screenshots/image1.png)
 ![image2](./screenshots/image2.png)
+![image3](./screenshots/image3.png)
 
 ## Installation
 1. `git clone https://github.com/DawidekZagajnik/react-minesweeper-game.git`
